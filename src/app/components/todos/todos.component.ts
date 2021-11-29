@@ -10,6 +10,8 @@ export class TodosComponent implements OnInit {
 
   todos:Todo[] = [];
 
+  inputTodo:string = '';
+
   constructor() { }
 
   ngOnInit(): void {
@@ -25,11 +27,24 @@ export class TodosComponent implements OnInit {
     ]
   }
 
-  onClickToggleDone(id: any): void {
+  onClickToggleDone(id: number): void {
     this.todos.map((todo, index) => {
       if (index === id) todo.completed = !todo.completed;
       return todo;
     });
+  }
+
+  onDeleteTodo(id: number) {
+    this.todos = this.todos.filter((todo, index) => index !== id);
+  }
+
+  addTodo() {
+    this.todos.push({
+      content: this.inputTodo,
+      completed: false
+    });
+
+    this.inputTodo = ''; //to clear the input
   }
 
 }
